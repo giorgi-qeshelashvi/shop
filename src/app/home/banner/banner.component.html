@@ -1,0 +1,27 @@
+<section class="banner" aria-label="Promotional banners">
+  @if (currentPhoto(); as photo) {
+    <img
+      class="banner-image"
+      [src]="photo.image"
+      [alt]="photo.alt"
+      (error)="onImageError($event)"
+    />
+
+    <button
+      class="slide-button previous"
+      type="button"
+      aria-label="Previous banner"
+      (click)="previousSlide()"
+    >
+      &#10094;
+    </button>
+    <button
+      class="slide-button next"
+      type="button"
+      aria-label="Next banner"
+      (click)="nextSlide()"
+    >
+      &#10095;
+    </button>
+  }
+</section>

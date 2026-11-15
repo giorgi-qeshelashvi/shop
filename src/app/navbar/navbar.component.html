@@ -1,0 +1,62 @@
+<nav appScrolling>
+  <h1 routerLink="/"><img src="/logo.png" alt="" />SmartPoint</h1>
+  <div #search class="search">
+    <i
+      (click)="search.classList.toggle('mini')"
+      class="fa-solid fa-magnifying-glass"
+    ></i>
+    <input
+      (keydown.escape)="tools.isSectionShown.set(false)"
+      type="search"
+      placeholder="What are you looking for?"
+      [(ngModel)]="searchWord"
+    />
+  </div>
+  <div class="user">
+    @if (_cookie.get("user")) {
+      <div class="cartIcon">
+        <span> {{ tools.cartQuantity() }} </span>
+        <i
+          (click)="isCartShown = !isCartShown"
+          class="fa-solid fa-cart-shopping"
+        ></i>
+      </div>
+    }
+    @if (!isLoggedIn) {
+      <button (click)="tools.isSignedIn.next(true)">
+        <i class="fa-regular fa-user"></i> LOGIN
+      </button>
+    } @else {
+      <button (click)="isProfileInfoShown = !isProfileInfoShown">
+        <img [src]="tools.userNavbarInfo().avatar" alt="" />{{
+          tools.userNavbarInfo().firstName | uppercase
+        }}
+      </button>
+      <button class="signout" (click)="signOut()">
+        <i class="fa-solid fa-right-to-bracket"></i>
+      </button>
+    }
+  </div>
+</nav>
+@if (isProfileInfoShown) {
+  <app-profile-page></app-profile-page>
+}
+
+@if (isCartShown) {
+  <app-cart></app-cart>
+}
+
+<app-nav-searching-panel
+  #searchPanel
+  [searchWord]="searchWord()"
+></app-nav-searching-panel>
+@if (isSignShow) {
+  <app-sign-in
+    (closeEmit)="isSignShow = $event"
+    (changeEmit)="showRegister()"
+    (loggedEmit)="isLoggedIn = $event"
+  ></app-sign-in>
+}
+@if (isRegisterShow) {
+  <app-sign-up (closeEmit)="isRegisterShow = $event"></app-sign-up>
+}

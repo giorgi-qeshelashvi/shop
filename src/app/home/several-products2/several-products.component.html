@@ -1,0 +1,48 @@
+<section class="container">
+  <button [disabled]="currentPage <= 1" (click)="changeProductPage('-')">
+    <i class="fa-solid fa-angle-left"></i>
+  </button>
+  <main>
+    @if (productList) {
+      @for (item of productList; track $index) {
+        <div class="card">
+          <h6 [style.display]="item.stock > 0 ? 'none' : 'unset'">
+            {{ item.stock <= 0 ? "Out of Stock" : "" }}
+          </h6>
+          <img
+            [src]="item.thumbnail"
+            (error)="item.thumbnail = '/nophoto.jpg'"
+            alt="product"
+          />
+          <h4>{{ item.title }}</h4>
+          <h2>
+            {{ item.price.current | currency }}
+            @if (item.price.current < item.price.beforeDiscount) {
+              <span>{{ item.price.beforeDiscount | currency }}</span>
+            }
+          </h2>
+          <div class="bottomArea">
+            <button
+              type="button"
+              class="addtocart"
+              [disabled]="item.stock <= 0"
+              [attr.aria-label]="
+                item.stock <= 0 ? 'Out of stock' : 'Add to cart'
+              "
+              (click)="addToCart(item._id)"
+            >
+              <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+            <button routerLink="/details/{{ item._id }}">View Product</button>
+          </div>
+        </div>
+      }
+    }
+  </main>
+  <button
+    [disabled]="currentPage * pageSize >= totalProducts"
+    (click)="changeProductPage('+')"
+  >
+    <i class="fa-solid fa-angle-right"></i>
+  </button>
+</section>

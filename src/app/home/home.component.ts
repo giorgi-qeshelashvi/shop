@@ -1,0 +1,42 @@
+import {
+  Component,
+  OnInit,
+  signal,
+  ChangeDetectionStrategy,
+} from '@angular/core';
+import { SignInComponent } from '../sign-in/sign-in.component';
+import { SidebarComponent } from '../sidebar/sidebar.component';
+import { ApiAreaService } from '../services/api-area.service';
+import { HttpHeaders } from '@angular/common/http';
+import { BannerComponent } from './banner/banner.component';
+
+import { SeveralProductsComponent } from './several-products/several-products.component';
+import { SeveralProductsComponent as SeveralProducts2Component } from './several-products2/several-products.component';
+import { ProductsAreaService } from '../services/products-area.service';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-home',
+  imports: [
+    BannerComponent,
+    SeveralProductsComponent,
+    SeveralProducts2Component,
+    RouterLink,
+  ],
+  templateUrl: './home.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './home.component.css',
+})
+export class HomeComponent {
+  constructor(private api: ProductsAreaService) {
+    this.getBrands();
+  }
+
+  allBrands = signal<string[]>([]);
+
+  getBrands() {
+    this.api
+      .getBrands()
+      .subscribe((data: string[]) => this.allBrands.set(data));
+  }
+}

@@ -1,0 +1,213 @@
+<app-banner></app-banner>
+<main>
+  <section>
+    <div class="headingh2">
+      <h2>Categories</h2>
+    </div>
+    <div class="categories">
+      <div
+        class="categoryCard"
+        [routerLink]="['/shop']"
+        [queryParams]="{ categoryId: '1' }"
+      >
+        <h2>Laptops</h2>
+        <div class="photo">
+          <img src="https://i.imgur.com/LNqbBdo.jpg" alt="" />
+        </div>
+      </div>
+      <div
+        class="categoryCard"
+        [routerLink]="['/shop']"
+        [queryParams]="{ categoryId: '2' }"
+      >
+        <h2>Smartphones</h2>
+        <div class="photo">
+          <img src="https://i.imgur.com/jqoLcKx.jpg" alt="" />
+        </div>
+      </div>
+    </div>
+    <div class="allProductsAction">
+      <button class="allProductsButton" routerLink="/shop">
+        See all products
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </button>
+    </div>
+  </section>
+
+  <section>
+    <div class="headingh2">
+      <h2>Brands</h2>
+    </div>
+    <div class="wrapper">
+      <div class="item" style="--i: 1">
+        <img
+          class="partner-logo"
+          src="https://alta-static.lemon.do/Alta/2d525812-f96e-4c7e-976d-f00df694a2e66322bf61-ba3b-4dc5-81de-e586afa25502.png"
+          alt="logo"
+          draggable="false"
+          loading="lazy"
+          decoding="async"
+          height="40px"
+        />
+      </div>
+      <div class="item" style="--i: 2">
+        <img
+          class="partner-logo"
+          src="https://imgstore.alta.ge/images/ac4c8c60-e228-4150-b17e-6fa093791458cbcca267-8f88-488b-aa79-00bf595590ab.webp"
+          alt="logo"
+          draggable="false"
+          loading="lazy"
+          decoding="async"
+          height="20px"
+        />
+      </div>
+      <div class="item" style="--i: 3">
+        <img
+          class="partner-logo"
+          src="https://imgstore.alta.ge/images/a53997bc-f484-44cf-8916-21a34dd4a2b0e564c0b1-9db1-46ae-9276-137719aba372.webp"
+          alt="logo"
+          draggable="false"
+          loading="lazy"
+          decoding="async"
+          height="40px"
+        />
+      </div>
+      <div class="item" style="--i: 4">
+        <img
+          class="partner-logo"
+          src="https://alta-static.lemon.do/Alta/5e429b3b-4769-4005-a059-04b5f8a9e3547b63a001-5b11-48f7-b762-6eba45159b6e.png"
+          alt="logo"
+          draggable="false"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="item" style="--i: 5">
+        <img
+          class="partner-logo"
+          src="https://logo-teka.com/wp-content/uploads/2025/07/oneplus-horizontal-logo.svg"
+          alt="logo"
+          draggable="false"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="item" style="--i: 6">
+        <img
+          class="partner-logo"
+          src="https://imgstore.alta.ge/images/5a955306-a0d5-40b4-a056-53114d9b9821ab6c0f62-7f0e-4467-b6b0-e5405e52c2c8.webp"
+          alt="logo"
+          draggable="false"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="item" style="--i: 7">
+        <img
+          class="partner-logo"
+          src="https://alta-static.lemon.do/Alta/f248cc48-416e-402b-abb4-4ac5bcf0fc192fb72c8a-4580-41a3-92a0-3505c4165d7b.png"
+          alt="logo"
+          draggable="false"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="item" style="--i: 8">
+        <img
+          class="partner-logo"
+          src="https://alta-static.lemon.do/Alta/2aaf4691-1c89-4767-b4d9-126e4b3d36555d4d8f1c-770f-4600-af6a-4acfd775da7d.png"
+          alt="logo"
+          draggable="false"
+          loading="lazy"
+          decoding="async"
+          height="30px"
+        />
+      </div>
+      <div class="item" style="--i: 9">
+        <img
+          class="partner-logo"
+          src="https://www.logo.wine/a/logo/HP_Inc./HP_Inc.-Logo.wine.svg"
+          alt="logo"
+          draggable="false"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="item" style="--i: 10">
+        <img
+          class="partner-logo"
+          src="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/00/Acer_2011.svg/3840px-Acer_2011.svg.png"
+          alt="logo"
+          draggable="false"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="item" style="--i: 11">
+        <img
+          class="partner-logo"
+          src="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/Dell-Logo.svg/3840px-Dell-Logo.svg.png"
+          alt="logo"
+          draggable="false"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="item" style="--i: 12">
+        <img
+          class="partner-logo"
+          src="https://logolook.net/wp-content/uploads/2023/10/MSI-Logo.png"
+          alt="logo"
+          draggable="false"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </section>
+
+  <div class="headingh2 selling">
+    <h2>Mobile Phones</h2>
+    <h3 routerLink="/shop">See All Products</h3>
+  </div>
+
+  <app-several-products></app-several-products>
+
+  <div class="headingh2 selling">
+    <h2>Laptops</h2>
+    <h3 routerLink="/shop">See All Products</h3>
+  </div>
+
+  <app-several-products2></app-several-products2>
+
+  <section class="faq-cont">
+    <div class="faq-container">
+      <div class="headingh2">
+        <h2>FAQ</h2>
+      </div>
+
+      <div class="faq-content">
+        <div class="faq-column">
+          <details class="faq-item">
+            <summary class="faq-question">
+              Can I purchase equipment on installments?
+            </summary>
+            <p class="faq-answer">
+              Yes, you can purchase any equipment on installments through any
+              bank.
+            </p>
+          </details>
+        </div>
+
+        <div class="faq-column">
+          <details class="faq-item">
+            <summary class="faq-question">
+              How many days after purchase can I return an item?
+            </summary>
+            <p class="faq-answer">You can return the item within seven days.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

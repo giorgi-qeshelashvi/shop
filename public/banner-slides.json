@@ -1,0 +1,16 @@
+{
+  "photos": [
+    {
+      "image": "/banner1.webp",
+      "alt": ""
+    },
+    {
+      "image": "/banner2.webp",
+      "alt": ""
+    },
+    {
+      "image": "/banner3.webp",
+      "alt": ""
+    }
+  ]
+}

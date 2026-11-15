@@ -1,0 +1,114 @@
+import {
+  AfterContentChecked,
+  Component,
+  OnInit,
+  signal,
+  ChangeDetectionStrategy,
+  ElementRef,
+  HostListener,
+  ViewChild,
+} from '@angular/core';
+import { SignInComponent } from '../sign-in/sign-in.component';
+import { SignUpComponent } from '../sign-up/sign-up.component';
+import { ScrollingDirective } from '../../directives/scrolling.directive';
+import { RouterModule } from '@angular/router';
+import { ToolsService } from '../services/tools.service';
+import { CookieService } from 'ngx-cookie-service';
+import { NavSearchingPanelComponent } from '../nav-searching-panel/nav-searching-panel.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ProfilePageComponent } from '../profile-page/profile-page.component';
+import { ApiAreaService } from '../services/api-area.service';
+import { CartComponent } from '../cart/cart.component';
+import { CartAreaService } from '../services/cart-area.service';
+import { SpinnerComponent } from '../spinner/spinner.component';
+
+@Component({
+  selector: 'app-navbar',
+  imports: [
+    SignInComponent,
+    SignUpComponent,
+    ScrollingDirective,
+    RouterModule,
+    RouterModule,
+    NavSearchingPanelComponent,
+    FormsModule,
+    CommonModule,
+    ProfilePageComponent,
+    CartComponent,
+  ],
+  templateUrl: './navbar.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './navbar.component.css',
+})
+export class NavbarComponent implements OnInit {
+  constructor(
+    protected _cookie: CookieService,
+    protected tools: ToolsService,
+    private api: ApiAreaService,
+    protected cartServ: CartAreaService,
+  ) {}
+
+  ngOnInit(): void {
+    this.tools.isSignedIn.subscribe(
+      (info: boolean) => (this.isSignShow = info),
+    );
+    this.tools.isRegistered.subscribe(
+      (info: boolean) => (this.isRegisterShow = info),
+    );
+    this.profileInfoNav();
+    this._cookie.get('user')
+      ? this.cartServ
+          .getCart()
+          .subscribe((cartData: any) =>
+            this.tools.cartQuantity.set(cartData.products.length),
+          )
+      : null;
+  }
+
+  public isSignShow: boolean = false;
+  public isRegisterShow: boolean = false;
+  public isLoggedIn: boolean = false;
+  public isProfileInfoShown: boolean = false;
+  public isCartShown: boolean = false;
+  public userInfoNAV = signal<any>({});
+  public searchWord = signal<string>('');
+
+  @ViewChild('search') private searchElement!: ElementRef<HTMLElement>;
+  @ViewChild('searchPanel', { read: ElementRef })
+  private searchPanelElement!: ElementRef<HTMLElement>;
+
+  @HostListener('document:click', ['$event'])
+  closeSearchOnOutsideClick(event: MouseEvent) {
+    const target = event.target;
+    if (
+      target instanceof Node &&
+      !this.searchElement.nativeElement.contains(target) &&
+      !this.searchPanelElement.nativeElement.contains(target)
+    ) {
+      this.tools.isSectionShown.set(false);
+    }
+  }
+
+  signOut() {
+    this._cookie.deleteAll();
+    this.isLoggedIn = false;
+    this.isProfileInfoShown = false;
+  }
+  showRegister() {
+    this.tools.isSignedIn.next(false);
+    this.tools.isRegistered.next(true);
+  }
+
+  profileInfoNav() {
+    if (this._cookie.get('user')) {
+      this.api.profileInfo().subscribe({
+        next: (data: any) => {
+          this.isLoggedIn = true;
+          this.tools.userNavbarInfo.set(data);
+        },
+        error: (err: any) => console.log(err),
+      });
+    }
+  }
+}

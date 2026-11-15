@@ -1,0 +1,149 @@
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  Renderer2,
+  signal,
+  ViewChild,
+  ChangeDetectionStrategy,
+} from '@angular/core';
+import { ApiAreaService } from '../services/api-area.service';
+import { CartAreaService } from '../services/cart-area.service';
+import { ProductsAreaService } from '../services/products-area.service';
+
+import { RouterModule } from '@angular/router';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { ToolsService } from '../services/tools.service';
+import { CookieService } from 'ngx-cookie-service';
+
+@Component({
+  selector: 'app-profile-page',
+  imports: [RouterModule, ReactiveFormsModule],
+  templateUrl: './profile-page.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './profile-page.component.css',
+})
+export class ProfilePageComponent implements OnInit {
+  constructor(
+    private api: ApiAreaService,
+    private cartServ: CartAreaService,
+    private prodServ: ProductsAreaService,
+    private renderer: Renderer2,
+    protected tools: ToolsService,
+    public _cookie: CookieService,
+  ) {}
+  ngOnInit(): void {
+    this.getProfileData();
+  }
+
+  protected profileToUpdate: FormGroup = new FormGroup({
+    firstName: new FormControl(''),
+    lastName: new FormControl(''),
+    age: new FormControl(''),
+    address: new FormControl(''),
+    phone: new FormControl(''),
+    zipcode: new FormControl(''),
+    avatar: new FormControl(''),
+    gender: new FormControl(''),
+  });
+
+  protected passForm: FormGroup = new FormGroup({
+    oldPassword: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+    ]),
+    newPassword: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+    ]),
+  });
+
+  public canChangeBio: boolean = false;
+  public isPassFormShown: boolean = false;
+  public isProfileInfoShown: boolean = false;
+  public isResponseSMSShown: boolean = false;
+  public responseSMS = signal<string>('');
+  @ViewChild('settings') public settings!: ElementRef;
+
+  toggleSettings() {
+    this.settings.nativeElement.classList.toggle('settingShowHide');
+  }
+
+  showProfileInfo() {
+    this.isProfileInfoShown = true;
+  }
+
+  closeProfileInfo(close: boolean) {
+    this.isProfileInfoShown = close;
+  }
+
+  getProfileData() {
+    this.api.profileInfo().subscribe({
+      next: (data: any) => {
+        this.tools.userNavbarInfo.set(data);
+        this.profileToUpdate.patchValue({
+          firstName: data.firstName,
+          lastName: data.lastName,
+          age: data.age,
+          address: data.address,
+          phone: data.phone,
+          zipcode: data.zipcode,
+          avatar: data.avatar,
+          gender: data.gender,
+        });
+      },
+    });
+  }
+
+  updateBio() {
+    this.api.updateProfile(this.profileToUpdate.value).subscribe({
+      next: (data: any) => {
+        this.tools.userNavbarInfo.set(data);
+        this.canChangeBio = false;
+        this.responseSMS.set('Profile Info Changed successfully');
+        this.isResponseSMSShown = true;
+        setTimeout(() => {
+          this.isPassFormShown = false;
+          this.isResponseSMSShown = false;
+          this.responseSMS.set('');
+        }, 1000);
+      },
+      error: (err: any) => {
+        this.responseSMS.set(err.error.error);
+        this.isResponseSMSShown = true;
+        setTimeout(() => {
+          this.isResponseSMSShown = false;
+          this.responseSMS.set('');
+        }, 1000);
+      },
+    });
+  }
+
+  updatePass() {
+    this.api.changePass(this.passForm.value).subscribe({
+      next: (data: any) => {
+        this.responseSMS.set('Password Changed successfully');
+        this._cookie.set('user', data.access_token, 1);
+        this.isResponseSMSShown = true;
+        setTimeout(() => {
+          this.isResponseSMSShown = false;
+          this.responseSMS.set('');
+        }, 1000);
+      },
+      error: (err: any) => {
+        this.responseSMS.set(err.error.error);
+        this.isResponseSMSShown = true;
+        setTimeout(() => {
+          this.isResponseSMSShown = false;
+          this.responseSMS.set('');
+        }, 1000);
+      },
+    });
+  }
+
+}
