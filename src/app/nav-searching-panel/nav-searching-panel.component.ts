@@ -10,7 +10,14 @@ import { RouterLink } from '@angular/router';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { ToolsService } from '../services/tools.service';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs';
+import {
+  EMPTY,
+  distinctUntilChanged,
+  map,
+  switchMap,
+  tap,
+  timer,
+} from 'rxjs';
 
 @Component({
   selector: 'app-nav-searching-panel',
@@ -33,10 +40,21 @@ export class NavSearchingPanelComponent {
   searchingFn() {
     toObservable(this.searchWord)
       .pipe(
-        debounceTime(500),
+        map((text) => text.trim()),
         distinctUntilChanged(),
-        filter((text) => text != ''),
-        switchMap((text: string) => this.service.getSearchedData(text)),
+        tap((text) => {
+          if (!text) {
+            this.tools.isSectionShown.set(false);
+            this.searchedList.set([]);
+          }
+        }),
+        switchMap((text) =>
+          text
+            ? timer(500).pipe(
+                switchMap(() => this.service.getSearchedData(text)),
+              )
+            : EMPTY,
+        ),
       )
       .subscribe((data: any) => {
         this.tools.isSectionShown.set(true);
