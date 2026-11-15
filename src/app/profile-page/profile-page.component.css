@@ -146,3 +146,23 @@ li input:read-only {
   text-align: center;
   border-radius: 3px;
 }
+
+@media (max-width: 600px) {
+  .userArea {
+    top: 108px;
+    right: 8px;
+    width: min(300px, calc(100vw - 16px));
+    max-height: calc(100dvh - 120px);
+    overflow-y: auto;
+  }
+
+  li {
+    gap: 6px;
+    font-size: 11px;
+  }
+
+  li input {
+    width: 52%;
+    min-width: 0;
+  }
+}

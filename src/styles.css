@@ -57,3 +57,9 @@ li {
   background: #429ae2 !important;
   color: #000 !important;
 }
+
+@media (max-width: 600px) {
+  body {
+    overflow-x: hidden;
+  }
+}

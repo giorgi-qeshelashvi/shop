@@ -146,3 +146,26 @@ section main {
 .card button:hover {
   box-shadow: 2px 1px 9px -1px #1a5d94;
 }
+
+@media (max-width: 600px) {
+  section.container {
+    width: 100%;
+  }
+
+  section > button {
+    width: 32px;
+    height: 32px;
+  }
+
+  section main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+    justify-items: center;
+    padding-inline: 36px;
+  }
+
+  .card {
+    width: min(100%, 250px);
+    height: 360px;
+  }
+}

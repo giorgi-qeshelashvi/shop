@@ -126,3 +126,36 @@
   font-size: 14px;
   font-weight: 600;
 }
+
+@media (max-width: 600px) {
+  .cartArea {
+    top: 108px;
+    right: 8px;
+    width: calc(100vw - 16px);
+    max-height: calc(100dvh - 120px);
+    overflow-y: auto;
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  .card {
+    grid-template-columns: 44px minmax(0, 1fr) 28px 52px 26px;
+    gap: 5px;
+    padding: 5px;
+  }
+
+  .card img {
+    padding: 4px;
+  }
+
+  .info h4,
+  .info p,
+  .card > p {
+    font-size: 11px;
+  }
+
+  .card .fa-x {
+    width: 26px;
+    height: 26px;
+  }
+}

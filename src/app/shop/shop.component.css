@@ -200,9 +200,50 @@ section main {
     position: static;
     width: 100% !important;
     height: auto;
+    margin-top: 108px;
   }
 
   .categories {
     justify-content: center;
+  }
+
+  section {
+    margin-top: 12px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  section.container {
+    width: calc(100% - 20px);
+  }
+
+  section main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+    justify-items: center;
+    gap: 14px;
+    padding: 8px 0;
+  }
+
+  .card {
+    width: min(100%, 250px);
+    height: 360px;
+  }
+
+  .pages {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .pages button {
+    min-width: 36px;
+    height: 36px;
+    margin: 10px 0;
+  }
+
+  .pages button:first-child,
+  .pages button:last-child {
+    width: auto !important;
+    padding-inline: 10px;
   }
 }

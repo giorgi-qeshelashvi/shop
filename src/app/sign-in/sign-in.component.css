@@ -187,18 +187,36 @@ form button:hover {
 
 @media screen and (max-width: 998px) {
   .card {
-    width: 70%;
-    transform: scale(0.6) !important;
+    width: min(92vw, 900px);
   }
 }
 
 @media screen and (max-width: 768px) {
   .card {
     flex-direction: column;
+    max-height: 92vh;
+    overflow-y: auto;
+    transform: none !important;
   }
 
   form,
   .rightBack {
     width: 100%;
+  }
+
+  form {
+    height: auto;
+    min-height: 360px;
+    padding: 36px 22px 24px;
+  }
+
+  .rightBack {
+    height: auto;
+    min-height: 120px;
+    padding: 24px 16px;
+  }
+
+  .rightBack h1 {
+    font-size: 22px;
   }
 }

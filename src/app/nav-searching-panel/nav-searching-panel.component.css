@@ -97,3 +97,29 @@ section {
   font-size: 11px;
   text-decoration: line-through;
 }
+
+@media (max-width: 600px) {
+  section {
+    top: 100px;
+    height: calc(100dvh - 100px);
+  }
+
+  .searchCard {
+    width: calc(100% - 24px);
+    max-height: calc(100dvh - 125px);
+    margin-top: 12px;
+    padding: 18px 12px;
+    border-radius: 18px;
+  }
+
+  .desc {
+    min-width: 0;
+    padding-right: 22px;
+  }
+
+  .desc h5 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

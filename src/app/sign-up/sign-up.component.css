@@ -182,11 +182,11 @@ form button:hover {
 
 @media screen and (max-width: 768px) {
   form {
-    width: 60%;
-    height: 90%;
-    padding: 10px;
-    overflow: scroll;
-    transform: scale(0.8) !important;
+    width: calc(100vw - 24px);
+    max-height: 92vh;
+    padding: 28px 20px 20px;
+    overflow-y: auto;
+    transform: none !important;
   }
 
   form h1 {
@@ -199,15 +199,15 @@ form button:hover {
     bottom: -8px;
   }
   form .content {
-    flex-direction: column;
-    transform: scale(0.9);
-    margin-bottom: 0;
-    gap: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    transform: none;
+    margin: 14px 0 0;
+    gap: 8px 14px;
   }
 
   form .bottomContent {
-    transform: scale(0.9);
-    margin-top: 0;
+    transform: none;
+    margin-top: 14px;
   }
 
   .bottomContent .imageArea {
@@ -216,11 +216,14 @@ form button:hover {
     flex-direction: column;
   }
 
-  form .content {
-    margin-top: 0;
-  }
-
   .content input {
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  form .content {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
   }
 }

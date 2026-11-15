@@ -70,3 +70,27 @@
   background-color: #1a5d94;
   box-shadow: 0 0 4px 0px rgb(61, 61, 61);
 }
+
+@media (max-width: 600px) {
+  .errCard {
+    width: calc(100vw - 32px);
+    height: auto;
+    min-height: 220px;
+    padding: 36px 16px 20px;
+    text-align: center;
+  }
+
+  .errCard h2 {
+    font-size: 20px;
+  }
+
+  .errCard .btns {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .errCard .btns button {
+    width: min(150px, calc(50% - 8px));
+  }
+}

@@ -161,27 +161,68 @@ nav .user .fa-cart-shopping {
   }
 
   nav .search {
-    width: auto;
+    width: min(32vw, 350px);
   }
 }
 @media screen and (max-width: 600px) {
   nav {
-    padding: 5px;
+    padding: 8px 12px;
+    height: auto;
+    min-height: 100px;
+    flex-wrap: wrap;
+    align-content: center;
+    gap: 8px;
   }
+
   nav h1 {
-    font-size: 10px;
+    font-size: 18px;
+    gap: 5px;
+  }
+
+  nav h1 img {
+    width: 25px;
   }
 
   nav .search {
-    width: 40px;
+    position: relative;
+    order: 3;
+    flex: 0 0 100%;
+    width: 100%;
+  }
+
+  nav .search input {
+    display: block;
+    height: 34px;
+    padding-right: 42px;
+  }
+
+  nav .user {
+    gap: 6px;
+    margin-left: auto;
+  }
+
+  nav .user button {
+    width: auto;
+    min-width: 0;
+    padding: 0 10px;
+    font-size: 13px;
+  }
+
+  nav .user button img {
+    width: 25px;
+    height: 25px;
+  }
+
+  nav .user .signout {
+    width: 35px !important;
+    padding: 0;
   }
 
   .mini {
-    position: fixed !important;
+    position: relative !important;
     width: 100% !important;
-    padding-inline: 10px;
-    z-index: 9999;
-    left: 0;
-    transition: 1s;
+    padding-inline: 0;
+    left: auto;
+    transition: none;
   }
 }
